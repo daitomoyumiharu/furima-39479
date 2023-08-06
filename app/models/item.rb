@@ -19,6 +19,8 @@ class Item < ApplicationRecord
   validates :shipping_cost_id, presence: true
   validates :prefecture_id, presence: true
   validates :shipping_date_id, presence: true
+  # 300円以上かつ9,999,999円以下で、半角数字でないと入力不可
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
    
   # 選択が「--」の時(0の時)は保存不可のバリデーション
