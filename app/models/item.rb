@@ -10,4 +10,22 @@ class Item < ApplicationRecord
   belongs_to :shipping_cost
   belongs_to :shipping_date
 
+  validates :user, presence: true
+  validates :image, presence: true
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :category_id, presence: true
+  validates :item_status_id, presence: true
+  validates :shipping_cost_id, presence: true
+  validates :prefecture_id, presence: true
+  validates :shipping_date_id, presence: true
+
+   
+  # 選択が「--」の時(0の時)は保存不可のバリデーション
+  validates :category_id,numericality: { other_than: 0 , message: "カテゴリーを選択してください" }
+  validates :prefecture_id,numericality: { other_than: 0 , message: "都道府県を選択してください" }
+  validates :item_status_id,numericality: { other_than: 0 , message: "商品の状態を選択してください" }
+  validates :shipping_cost_id,numericality: { other_than: 0 , message: "配送料を選択してください" }
+  validates :shipping_date_id,numericality: { other_than: 0 , message: "発送までの日数を選択してください" }
+
 end
