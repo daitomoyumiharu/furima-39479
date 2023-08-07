@@ -10,7 +10,6 @@ class Item < ApplicationRecord
   belongs_to :shipping_cost
   belongs_to :shipping_date
 
-  validates :user, presence: true
   validates :image, presence: true
   validates :name, presence: true
   validates :description, presence: true
