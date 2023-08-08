@@ -111,6 +111,11 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
+      it '価格が小数点を含むと出品できない' do
+        @item.price = 100.50
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price must be an integer')
+      end
       it '価格の範囲が、300円未満だと出品できない' do
         @item.price = 100
         @item.valid?
@@ -120,6 +125,11 @@ RSpec.describe Item, type: :model do
         @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+      end
+      it '金額が全角数字だと出品できない' do
+        @item.price = '１０００'  # 全角数字の価格を設定
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
     end
   end
