@@ -5,7 +5,8 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with model: @item, local: true do |f| %>
+    <%# rails7.0.0ではjavascriptとの相性が悪いらしいので、turbo: falseでturboが実行しないよう設定。%>
+    <%= form_with model: @item , data: { turbo: false }, local: true do |f| %>
 
     <%# インスタンスを渡して、エラー発生時にメッセージを表示。%>
     <%= render partial: "shared/error_messages", locals: { model: @item } %>
