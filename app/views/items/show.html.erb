@@ -23,18 +23,19 @@
       </span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
+    <%# ユーザーがログインしている場合 %>
+    <% if user_signed_in? %>
+    <%# 「商品の編集」「削除」ボタンを表示 %>
+      <% if current_user == @item.user %>
+        <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", "#", method: :delete, class:"item-destroy" %>
+      <% else %>
+        <%# 出品者でなく、未購入品の場合: 「購入画面に進む」ボタンを表示 %>
+        <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
+      <% end %>
+    <% end %>
 
-    <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
-    <p class="or-text">or</p>
-    <%= link_to "削除", "#", method: :delete, class:"item-destroy" %>
-
-    <%# 商品が売れていない場合はこちらを表示しましょう %>
-    <%= link_to "購入画面に進む", "#" ,class:"item-red-btn"%>
-    <%# //商品が売れていない場合はこちらを表示しましょう %>
-
-
-    <%# //ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
 
     <div class="item-explain-box">
       <span><%= "商品説明" %></span>
