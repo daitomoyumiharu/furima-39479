@@ -23,9 +23,17 @@ class ItemsController < ApplicationController
 
   def edit
     # ログインしているユーザーであればeditファイルが読み込み
-    if @item.user_id == current_user
+    if @item.user_id == current_user.id
     else
       redirect_to root_path
+    end
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

@@ -83,7 +83,7 @@ app/assets/stylesheets/items/new.css %>
           発送までの日数
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:shippind_data_id, ShippingData.all, :id, :name, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
+         <%= f.collection_select(:shipping_date_id, ShippingDate.all, :id, :name, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
       </div>
     </div>
     <%# /配送について %>
@@ -101,7 +101,7 @@ app/assets/stylesheets/items/new.css %>
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300" %>
+          <%= f.text_field :price, data: { turbo: false }, class:"price-input", id:"item-price", placeholder:"例）300" %>
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
@@ -141,7 +141,8 @@ app/assets/stylesheets/items/new.css %>
     <%# 下部ボタン %>
     <div class="sell-btn-contents">
       <%= f.submit "変更する" ,class:"sell-btn" %>
-      <%=link_to 'もどる', root_path, class:"back-btn" %>
+      <%# 「もどる」ボタンを押すと、編集途中の情報は破棄され、商品詳細表示ページに遷移 %>
+      <%=link_to 'もどる', item_path, class:"back-btn" %>
     </div>
     <%# /下部ボタン %>
   </div>
