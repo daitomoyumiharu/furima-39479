@@ -10,17 +10,18 @@ class Item < ApplicationRecord
   belongs_to :shipping_cost
   belongs_to :shipping_date
 
-  validates :image, presence: true
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :category_id, presence: true
-  validates :item_status_id, presence: true
-  validates :shipping_cost_id, presence: true
-  validates :prefecture_id, presence: true
-  validates :shipping_date_id, presence: true
-  # 300円以上かつ9,999,999円以下で、半角数字でないと入力不可
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, only_integer: true }
-
+  with_options presence: true do
+    validates :image, presence: true
+    validates :name, presence: true
+    validates :description, presence: true
+    validates :category_id, presence: true
+    validates :item_status_id, presence: true
+    validates :shipping_cost_id, presence: true
+    validates :prefecture_id, presence: true
+    validates :shipping_date_id, presence: true
+    # 300円以上かつ9,999,999円以下で、半角数字でないと入力不可
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, only_integer: true }
+  end
    
   # 選択が「--」の時(0の時)は保存不可のバリデーション
   validates :category_id,numericality: { other_than: 0 , message: "カテゴリーを選択してください" }
