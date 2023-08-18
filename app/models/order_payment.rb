@@ -13,10 +13,7 @@ class OrderPayment
     valid :city
     valid :block
     valid :bulding
-    validates :phone_number, format: {
-      with: /\A\d{3}-\d{4}-\d{4}\z/,
-      message: "フォーマットが正しくありません。例: 123-4567-8901"
-    }
+    validates :phone_number, format: { with: /\A[0-9]{11}\z/, message: 'is invalid' }
     
   end
   
