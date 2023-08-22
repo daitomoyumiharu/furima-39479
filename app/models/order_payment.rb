@@ -13,7 +13,9 @@ class OrderPayment
     validates :city
     validates :block
     #validates :building 任意のデータはバリデーション不要
-    validates :phone_number, format: { with: /\A[0-9]{11}\z/, message: 'is invalid' }
+
+    #先頭に０、後に1から９までの１０桁の数字のバリデーションを設定
+    validates :phone_number, format: { with: /\A0\d{9,10}\z/, message: 'is invalid' }
     
   end
   
