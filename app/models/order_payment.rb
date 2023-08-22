@@ -1,18 +1,18 @@
 class OrderPayment
-  include ActiveModel::model
-  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :bulding, :phone_number
+  include ActiveModel::Model
+  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number
 
 
   with_options presence: true do
     #order バリデーション
-    valid :user_id
-    valid :item_id
+    validates :user_id
+    validates :item_id
     #payment バリデーション
-    valid :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
-    valid :prefecture_id, numericality: {other_than: 0, message: "can't be blank"} 
-    valid :city
-    valid :block
-    valid :bulding
+    validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+    validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"} 
+    validates :city
+    validates :block
+    #validates :building 任意のデータはバリデーション不要
     validates :phone_number, format: { with: /\A[0-9]{11}\z/, message: 'is invalid' }
     
   end
