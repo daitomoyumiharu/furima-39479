@@ -34,7 +34,9 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with model: @order_payment, url: item_orders_path(@item),  id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+
+    <%# rails7.0.0を使用する際は、表示エラーが起こるためdata: { turbo: false }を追加 %>
+    <%= form_with model: @order_payment, url: item_orders_path(@item),  id: 'charge-form', class: 'transaction-form-wrap',data: { turbo: false },local: true do |f| %>
     
     <%# インスタンスを渡して、エラー発生時にメッセージを表示。%>
     <%= render 'shared/error_messages', model: f.object %>

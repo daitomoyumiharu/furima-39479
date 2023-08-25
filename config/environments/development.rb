@@ -67,4 +67,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  #rails 7.0.0を使用する時は、表示エラーが発生するので下記を追加
+  config.assets.debug = true
 end
