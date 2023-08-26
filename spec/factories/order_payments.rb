@@ -9,5 +9,7 @@ FactoryBot.define do
     building { Faker::Address.secondary_address }
     #先頭に0を付与、その後0から始まる10桁の半角数値を生成
     phone_number { "0#{Faker::Number.leading_zero_number(digits: 9)}" }
+    #tokenのテストを追加
+    token { Faker::Internet.password(min_length: 20, max_length: 30) }
   end
 end

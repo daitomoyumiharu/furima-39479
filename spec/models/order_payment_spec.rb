@@ -43,6 +43,10 @@ RSpec.describe OrderPayment, type: :model do
         @order_payment.phone_number = '09012345678'
         expect(@order_payment).to be_valid
       end
+      #tokenのテスト追加
+      it "priceとtokenがあれば保存ができること" do
+        expect(@order_payment).to be_valid
+      end
     end
 
     context '配送先情報の保存ができないとき' do
@@ -100,6 +104,12 @@ RSpec.describe OrderPayment, type: :model do
         @order_payment.phone_number = 11_111_111_111_111_11111
         @order_payment.valid?
         expect(@order_payment.errors.full_messages).to include('Phone number is invalid')
+      end
+      #tokenのテストを追加
+      it "tokenが空では登録できないこと" do
+        @order_payment.token = nil
+        @order_payment.valid?
+        expect(@order_payment.errors.full_messages).to include("Token can't be blank")
       end
       
     end
