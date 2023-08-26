@@ -1,3 +1,4 @@
+<%= include_gon %>
 <%= render "shared/second-header"%>
 
 <div class='transaction-contents'>
@@ -34,7 +35,8 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with model: @order_payment, url: item_orders_path(@item),  id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+    <%# rails7.0.0ではjavascriptとの相性が悪い為、turbo: falseでturboが実行しないよう設定%>
+    <%= form_with model: @order_payment, url: item_orders_path(@item), data: { turbo: false },  id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
     
     <%# インスタンスを渡して、エラー発生時にメッセージを表示。%>
     <%= render 'shared/error_messages', model: f.object %>

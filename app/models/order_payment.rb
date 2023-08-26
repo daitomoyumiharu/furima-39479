@@ -1,6 +1,6 @@
 class OrderPayment
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number
+  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number, :token
 
 
   with_options presence: true do
@@ -13,6 +13,9 @@ class OrderPayment
     validates :city
     validates :block
     #validates :building 任意のデータはバリデーション不要
+
+    #tokenのバリデーション(本来テーブルに存在しない為バリデーションは出来ないが、attr_accessor :tokenによりバリデーション可能)
+    validates :token
 
     #先頭に０、後に1から９までの１０桁の数字のバリデーションを設定
     validates :phone_number, format: { with: /\A0\d{9,10}\z/, message: 'is invalid' }

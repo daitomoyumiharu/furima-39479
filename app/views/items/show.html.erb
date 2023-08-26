@@ -27,12 +27,15 @@
     <% if user_signed_in? %>
     <%# 「商品の編集」「削除」ボタンを表示 %>
       <% if current_user == @item.user %>
-        <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
+      <%# rails7.0.0ではjavascriptとの相性が悪い為、turbo: falseでturboが実行しないよう設定%>
+        <%= link_to "商品の編集", edit_item_path(@item), method: :get,data: { turbo: false }, class: "item-red-btn" %>
         <p class="or-text">or</p>
         <%= link_to "削除", item_path(@item), data: { turbo_method: :delete }, class:"item-destroy" %>
       <% else %>
         <%# 出品者でなく、未購入品の場合: 「購入画面に進む」ボタンを表示 %>
-        <%= link_to "購入画面に進む", item_orders_path(@item), class: "item-red-btn" %>
+        
+        <%# rails7.0.0ではjavascriptとの相性が悪い為、turbo: falseでturboが実行しないよう設定%>
+        <%= link_to "購入画面に進む", item_orders_path(@item),data: { turbo: false }, class: "item-red-btn" %>
       <% end %>
     <% end %>
 
