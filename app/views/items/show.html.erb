@@ -30,6 +30,7 @@
       <%# rails7.0.0ではjavascriptとの相性が悪い為、turbo: falseでturboが実行しないよう設定%>
         <%= link_to "商品の編集", edit_item_path(@item), method: :get,data: { turbo: false }, class: "item-red-btn" %>
         <p class="or-text">or</p>
+        <%# rails7.0.0を使用する際は、表示エラーが起こるためdata: { turbo: false }を追加 %>
         <%= link_to "削除", item_path(@item), data: { turbo_method: :delete }, class:"item-destroy" %>
       <% else %>
         <%# 出品者でなく、未購入品の場合: 「購入画面に進む」ボタンを表示 %>
