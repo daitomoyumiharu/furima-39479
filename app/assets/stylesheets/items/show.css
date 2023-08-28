@@ -205,3 +205,8 @@
   font-weight: bold;
   font-size: 23px;
 }
+
+.sold-out-item{
+  color:red;
+  font-size:30px;
+}

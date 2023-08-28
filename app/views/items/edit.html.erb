@@ -8,7 +8,9 @@ app/assets/stylesheets/items/new.css %>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
     <%# 第一引数にインスタンス変数を渡し、予めフォームに値が入力された状態にする  %>
-    <%= form_with(model: @item, local: true) do |f| %>
+
+    <%# rails7.0.0ではjavascriptとの相性が悪い為、turbo: falseでturboが実行しないよう設定%>
+    <%= form_with(model: @item, local: true, data: { turbo: false }) do |f| %>
 
     <%= render 'shared/error_messages', model: f.object %>
 

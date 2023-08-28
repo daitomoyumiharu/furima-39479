@@ -8,11 +8,13 @@
     </h2>
     <div class="item-img-content">
        <%= image_tag @item.image.variant(resize: '500x500'), class: "item-box-img"  %>
-      <%# 商品が売れている場合は、sold outを表示しましょう %>
-      <div class="sold-out">
-        <span>Sold Out!!</span>
-      </div>
-      <%# //商品が売れている場合は、sold outを表示しましょう %>
+      <%# 商品が売れている場合は、sold out %>
+      <% if @item.order.present? %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
+      <% end %>
+      
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -26,13 +28,19 @@
     <%# ユーザーがログインしている場合 %>
     <% if user_signed_in? %>
     <%# 「商品の編集」「削除」ボタンを表示 %>
-      <% if current_user == @item.user %>
-        <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
+      <% if current_user == @item.user && @item.order.nil? %>
+      <%# rails7.0.0ではjavascriptとの相性が悪い為、turbo: falseでturboが実行しないよう設定%>
+        <%= link_to "商品の編集", edit_item_path(@item), method: :get,data: { turbo: false }, class: "item-red-btn" %>
         <p class="or-text">or</p>
+        <%# rails7.0.0を使用する際は、表示エラーが起こるためdata: { turbo: false }を追加 %>
         <%= link_to "削除", item_path(@item), data: { turbo_method: :delete }, class:"item-destroy" %>
+      <%# 売却済みの商品には、「商品の編集」「削除」「購入画面に進む」ボタンが表示されない %>
+      <% elsif @item.order.present? %>
+        <%= link_to "売り切れ", item_path(@item), class:"sold-out-item" %>
+      <%# 出品者でなく、未購入品の場合「購入画面に進む」ボタンを表示 %>
       <% else %>
-        <%# 出品者でなく、未購入品の場合: 「購入画面に進む」ボタンを表示 %>
-        <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
+        <%# rails7.0.0ではjavascriptとの相性が悪い為、turbo: falseでturboが実行しないよう設定%>
+        <%= link_to "購入画面に進む", item_orders_path(@item),data: { turbo: false }, class: "item-red-btn" %>
       <% end %>
     <% end %>
 
