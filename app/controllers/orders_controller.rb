@@ -22,7 +22,9 @@ class OrdersController < ApplicationController
 
   private
   def set_item
+    #対象の商品を探し、購入済みか否かの判断を事前にberore_actionにて行う
     @item = Item.find(params[:item_id])
+    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
 
   def pay_item
