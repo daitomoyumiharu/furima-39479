@@ -17,7 +17,7 @@ class OrderPayment
     #tokenのバリデーション(本来テーブルに存在しない為バリデーションは出来ないが、attr_accessor :tokenによりバリデーション可能)
     validates :token
    #先頭が0以外(国際電話)に対応かつ9桁以上11桁以下の電話番号を許可
-    validates :phone_number, format: {  with: /\A[0-9]{11}\z/, message: 'is invalid' }
+    validates :phone_number, format: {  with: /\A[0-9]{10,11}\z/, message: 'is invalid' }
     
   end
   
