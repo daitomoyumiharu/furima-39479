@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  #公開鍵を環境変数に設定
+  before_action :set_gon, only: [:index, :create]
 
   def index
     #JavaScriptで変数が使用できるよう設定
-    #公開鍵を環境変数に設定
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_payment = OrderPayment.new
   end
 
@@ -39,6 +39,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order_payment).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token])
+  end
+
+  def set_gon
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
   end
 
   
