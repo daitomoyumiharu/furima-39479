@@ -39,8 +39,8 @@ RSpec.describe OrderPayment, type: :model do
         @order_payment.building = nil
         expect(@order_payment).to be_valid
       end
-      it '電話番号が10桁以上11桁以内の半角数値のみであれば保存できる' do
-        @order_payment.phone_number = '09012345678'
+      it '電話番号が11番桁以内、ハイフンなしであれば保存できる' do
+        @order_payment.phone_number = '11111111111'
         expect(@order_payment).to be_valid
       end
       #tokenのテスト追加
@@ -100,8 +100,8 @@ RSpec.describe OrderPayment, type: :model do
         @order_payment.valid?
         expect(@order_payment.errors.full_messages).to include('Phone number is invalid')
       end
-      it '電話番号が12桁以上あると保存できないこと' do
-        @order_payment.phone_number = 11_111_111_111_111_11111
+      it '電話番号が9桁以下では購入できない' do
+        @order_payment.phone_number = 11111111
         @order_payment.valid?
         expect(@order_payment.errors.full_messages).to include('Phone number is invalid')
       end
