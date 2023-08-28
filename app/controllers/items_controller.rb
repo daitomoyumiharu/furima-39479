@@ -23,7 +23,8 @@ class ItemsController < ApplicationController
 
   def edit
     # ログインしているユーザーであればeditファイルが読み込み
-    if @item.user_id == current_user.id
+    # itemが購入されているか判定を行う(@item.order.nil?でorderがない場合のみeditファイルを読み込む)
+    if @item.user_id == current_user.id && @item.order.nil?
     else
       redirect_to root_path
     end
